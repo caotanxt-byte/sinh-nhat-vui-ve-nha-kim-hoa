@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Kim Hoa</title>
+
+<style>
+
+body{
+margin:0;
+background:linear-gradient(#050520,#000);
+font-family:sans-serif;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+/* controls */
+
+.controls{
+position:relative;
+z-index:9999;
+}
+
+/* sao */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:.2}
+to{opacity:1}
+}
+
+/* bong bóng */
+
+.balloon{
+position:absolute;
+width:40px;
+height:50px;
+border-radius:50%;
+opacity:.8;
+animation:float 15s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh)}
+to{transform:translateY(-120vh)}
+}
+
+/* hộp quà */
+
+.gift{
+font-size:80px;
+cursor:pointer;
+animation:shake 1s infinite;
+}
+
+@keyframes shake{
+0%{transform:rotate(-6deg)}
+50%{transform:rotate(6deg)}
+100%{transform:rotate(-6deg)}
+}
+
+/* bánh */
+
+.cake{
+display:none;
+margin-top:30px;
+animation:cakeFloat 3s infinite ease-in-out;
+}
+
+@keyframes cakeFloat{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+.layer{
+background:#ffb6c1;
+border-radius:12px;
+margin:auto;
+box-shadow:0 0 20px pink;
+}
+
+.layer1{width:220px;height:60px}
+.layer2{width:170px;height:50px;margin-top:-10px}
+.layer3{width:120px;height:40px;margin-top:-10px}
+
+/* nến */
+
+.cakeWrap{
+position:relative;
+width:220px;
+margin:auto;
+}
+
+.candle{
+width:10px;
+height:35px;
+background:white;
+position:absolute;
+top:-40px;
+}
+
+.candle:nth-child(1){left:60px}
+.candle:nth-child(2){left:100px}
+.candle:nth-child(3){left:140px}
+
+.flame{
+width:16px;
+height:22px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-20px;
+box-shadow:0 0 20px orange;
+animation:flicker .12s infinite;
+}
+
+@keyframes flicker{
+50%{transform:scale(1.3)}
+}
+
+/* lời chúc */
+
+.message{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:15px;
+font-size:26px;
+}
+
+.line{
+opacity:0;
+transform:translateY(20px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* tim */
+
+.heart{
+position:absolute;
+font-size:22px;
+color:pink;
+animation:rise 6s linear forwards;
+}
+
+@keyframes rise{
+to{
+transform:translateY(-700px);
+opacity:0;
+}
+}
+
+/* pháo hoa */
+
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+to{
+transform:scale(30);
+opacity:0;
+}
+}
+
+/* chữ KIM HOA */
+
+.fireText{
+font-size:42px;
+color:#ffd700;
+margin-top:20px;
+letter-spacing:8px;
+opacity:0;
+animation:appear 3s forwards;
+}
+
+@keyframes appear{
+to{opacity:1}
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:8px;
+background:#ff4d6d;
+color:white;
+font-size:15px;
+cursor:pointer;
+margin:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday Kim Hoa 🎉</h1>
+
+<div class="gift" onclick="openGift()">🎁</div>
+
+<div class="controls">
+<button onclick="startMic()">🎤 Thổi bằng Mic</button>
+<button onclick="blow()">💨 Thổi thủ công</button>
+</div>
+
+<div class="cake" id="cake">
+
+<div class="cakeWrap">
+
+<div class="layer layer3"></div>
+<div class="layer layer2"></div>
+<div class="layer layer1"></div>
+
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+
+</div>
+
+</div>
+
+<div class="message">
+
+<div class="line">Kim Hoa à ❤️</div>
+<div class="line">Tuổi mới thật xinh đẹp ✨</div>
+<div class="line">Tiền nhiều như lá 🍀</div>
+<div class="line">Người yêu nhiều như sao ⭐</div>
+<div class="line">Sớm trở thành đại gia bao cả thế giới 🌍</div>
+
+</div>
+
+<audio id="music"
+src="https://cdn.pixabay.com/audio/2022/10/30/audio_3c2e0c1f11.mp3">
+</audio>
+
+<script>
+
+/* sao */
+
+for(let i=0;i<120;i++){
+
+let star=document.createElement("div")
+
+star.className="star"
+
+star.style.left=Math.random()*100+"vw"
+
+star.style.top=Math.random()*100+"vh"
+
+document.body.appendChild(star)
+
+}
+
+/* bong bóng */
+
+let colors=["red","yellow","pink","purple","blue"]
+
+for(let i=0;i<20;i++){
+
+let b=document.createElement("div")
+
+b.className="balloon"
+
+b.style.background=colors[Math.floor(Math.random()*5)]
+
+b.style.left=Math.random()*100+"vw"
+
+document.body.appendChild(b)
+
+}
+
+/* mở quà */
+
+function openGift(){
+
+document.querySelector(".gift").style.display="none"
+
+document.getElementById("cake").style.display="block"
+
+}
+
+/* mic */
+
+let blown=false
+
+async function startMic(){
+
+try{
+
+const stream = await navigator.mediaDevices.getUserMedia({audio:true})
+
+const audioContext = new (window.AudioContext||window.webkitAudioContext)()
+
+const source = audioContext.createMediaStreamSource(stream)
+
+const analyser = audioContext.createAnalyser()
+
+source.connect(analyser)
+
+const data = new Uint8Array(analyser.frequencyBinCount)
+
+function detect(){
+
+analyser.getByteFrequencyData(data)
+
+let volume=data.reduce((a,b)=>a+b)/data.length
+
+if(volume>30 && !blown){
+
+blown=true
+
+blow()
+
+}
+
+requestAnimationFrame(detect)
+
+}
+
+detect()
+
+}catch{
+
+alert("Hãy cho phép microphone 🎤")
+
+}
+
+}
+
+/* thổi nến */
+
+function blow(){
+
+document.querySelectorAll(".flame").forEach(f=>f.style.display="none")
+
+document.getElementById("music").play()
+
+showMessage()
+
+hearts()
+
+fireworks()
+
+showKimHoa()
+
+}
+
+/* tim */
+
+function hearts(){
+
+setInterval(()=>{
+
+let h=document.createElement("div")
+
+h.className="heart"
+
+h.innerHTML="❤"
+
+h.style.left=Math.random()*100+"vw"
+
+h.style.top="80vh"
+
+document.body.appendChild(h)
+
+},300)
+
+}
+
+/* pháo hoa */
+
+function fireworks(){
+
+setInterval(()=>{
+
+let f=document.createElement("div")
+
+f.className="firework"
+
+f.style.left=Math.random()*100+"vw"
+
+f.style.top=Math.random()*60+"vh"
+
+f.style.background=`hsl(${Math.random()*360},100%,60%)`
+
+document.body.appendChild(f)
+
+},500)
+
+}
+
+/* chữ kim hoa */
+
+function showKimHoa(){
+
+let text=document.createElement("div")
+
+text.className="fireText"
+
+text.innerHTML="🎆 KIM HOA 🎆"
+
+document.body.appendChild(text)
+
+}
+
+/* lời chúc */
+
+function showMessage(){
+
+let lines=document.querySelectorAll(".line")
+
+lines.forEach((line,i)=>{
+
+setTimeout(()=>{
+
+line.classList.add("show")
+
+},i*1700)
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
